@@ -68,14 +68,14 @@ function get_json_feed_data() {
 	$return = array(
 		'version'       => 'https://jsonfeed.org/version/1.1',
 		// translators: 1. get_self_link URL
-		'user_comment'  => sprintf( __( 'This feed allows you to read the posts from this site in any feed reader that supports the JSON Feed format. To add this feed to your reader, copy the following URL -- %1$s -- and add it your reader.', 'jsonfeed' ), get_self_link() ),
+// 		'user_comment'  => sprintf( __( 'This feed allows you to read the posts from this site in any feed reader that supports the JSON Feed format. To add this feed to your reader, copy the following URL -- %1$s -- and add it your reader.', 'jsonfeed' ), get_self_link() ),
 		'next_url'      => get_json_feed_next_url(),
-		'home_page_url' => get_link_from_json_feed( get_self_link() ),
+// 		'home_page_url' => get_link_from_json_feed( get_self_link() ),
 		'feed_url'      => get_self_link(),
-		'language'      => get_bloginfo( 'language' ),
-		'title'         => get_wp_title_rss(),
-		'description'   => get_bloginfo( 'description' ),
-		'icon'          => get_site_icon_url(),
+// 		'language'      => get_bloginfo( 'language' ),
+// 		'title'         => get_wp_title_rss(),
+// 		'description'   => get_bloginfo( 'description' ),
+// 		'icon'          => get_site_icon_url(),
 	);
 	return array_filter( $return );
 }
@@ -104,11 +104,11 @@ function get_json_comment_feed_item() {
 		'id'             => get_comment_link(),
 		'url'            => get_comment_link(),
 		'title'          => html_entity_decode( $title ),
-		'content_html'   => $content,
-		'content_text'   => wp_strip_all_tags( $content ),
+// 		'content_html'   => $content,
+// 		'content_text'   => wp_strip_all_tags( $content ),
 		'date_published' => get_comment_date( 'Y-m-d\TH:i:sP' ),
-		'authors'        => array( get_json_comment_author() ),
-		'author'         => get_json_comment_author(),
+// 		'authors'        => array( get_json_comment_author() ),
+// 		'author'         => get_json_comment_author(),
 	);
 
 	if ( ! is_singular() ) {
@@ -132,20 +132,20 @@ function get_json_feed_item() {
 		'id'             => get_the_guid(),
 		'url'            => get_permalink(),
 		'title'          => html_entity_decode( get_the_title_rss() ),
-		'content_html'   => $content,
-		'content_text'   => wp_strip_all_tags( $content ),
+// 		'content_html'   => $content,
+// 		'content_text'   => wp_strip_all_tags( $content ),
 		'date_published' => get_the_date( 'Y-m-d\TH:i:sP' ),
 		'date_modified'  => get_the_modified_date( 'Y-m-d\TH:i:sP' ),
-		'authors'        => array( get_json_item_author() ),
-		'author'         => get_json_item_author(),
+// 		'authors'        => array( get_json_item_author() ),
+// 		'author'         => get_json_item_author(),
 		'image'          => get_the_post_thumbnail_url( null, 'full' ), // If there is a set featured image
 		'tags'           => json_get_merged_tags(), // Tags is a merge of the category and the tags names
 	);
 
 	// Only add custom excerpts not generated ones
-	if ( has_excerpt() ) {
-		$feed_item['summary'] = get_the_excerpt();
-	}
+// 	if ( has_excerpt() ) {
+		$feed_item['summary'] = wp_strip_all_tags( get_the_excerpt() );
+// 	}
 	// If anything is an empty string or null then remove it
 	$feed_item = array_filter( $feed_item );
 
